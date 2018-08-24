@@ -1,0 +1,16 @@
+beautifulsoup4==4.6.1
+certifi==2018.4.16
+chardet==3.0.4
+click==6.7
+enum34==1.1.6
+idna==2.7
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+pymongo==3.7.1
+pyTelegramBotAPI==3.6.5
+requests==2.7.0
+six==1.11.0
+telebot==0.0.3
+urllib3==1.23
+vk-api==10.1

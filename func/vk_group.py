@@ -53,9 +53,11 @@ def send(user, cont, img=[], keyboard=None):
 def read():
 	messages = []
 	for i in vk.method('messages.getConversations')['items']:
-		for j in vk.method('messages.getHistory', {'user_id': i['conversation']['peer']['id']})['items']:
-			if not j['read_state'] and not j['out']:
-				messages.append((j['from_id'], j['body']))
+		if 'unanswered' in i['conversation']:
+			messages.append((i['conversation']['peer']['id'], i['last_message']['text']))
+			# for j in vk.method('messages.getHistory', {'user_id': i['conversation']['peer']['id']})['items']:
+			# 	if 'read_state' in j and not j['read_state'] and not j['out']:
+			# 		messages.append((j['from_id'], j['body']))
 	return messages
 
 def users():
