@@ -20,9 +20,12 @@ while True:
 		continue
 
 	for i in all_messages:
+		# if i[0] not in users():
+		# 	send(i[0], 'Сначала подпишитесь на группу бота!\nhttps://vk.com/spbupunk', keyboard=keyboard)
+		# 	continue
+
 		if i[0] not in users():
-			send(i[0], 'Сначала подпишитесь на группу бота!\nhttps://vk.com/spbupunk', keyboard=keyboard)
-			continue
+			send(i[0], 'Никто не любит спам и мы тоже. Подпишись на группу бота, чтобы не пропустить ничего важного в наших постах! Мероприятия в ПУНКе и наиболее важные объявления.\nhttps://vk.com/spbupunk', keyboard=keyboard)
 
 		mes = i[1].lower().strip()
 		try:
