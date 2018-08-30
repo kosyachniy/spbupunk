@@ -60,5 +60,11 @@ def read():
 			# 		messages.append((j['from_id'], j['body']))
 	return messages
 
+def dial():
+	messages = []
+	for i in vk.method('messages.getConversations')['items']:
+		messages.append(i['conversation']['peer']['id'])
+	return messages
+
 def users():
 	return vk.method('groups.getMembers', {'group_id': 170498641})['items']
