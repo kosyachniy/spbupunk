@@ -1,13 +1,7 @@
 from func.vk_group import *
 
-keyboard = [
-	['Добраться до города'],
-	['Где магазины', 'Где столовые'],
-	['Учебные корпуса', 'Карта общежитий'],
-	['Частые вопросы', 'Расписание'],
-	['Сети', 'Контакты'], #'Структуры', 
-	['Про бота'],
-]
+with open('keyboards.json', 'r') as file:
+	keyboards = json.loads(file.read())
 
 with open('answers.json', 'r') as file:
 	answers = json.loads(file.read())
@@ -33,7 +27,7 @@ while True:
 			for req in answers:
 				if mes in req['questions']:
 					f = False
-					send(i[0], req['answer'], req['attachments'], keyboard)
+					send(i[0], req['answer'], req['attachments'], keyboards[req['keyboard']-1] if req['keyboard'] else None)
 
 			if f:
 				send(i[0], 'Выберите действие:', keyboard=keyboard)
