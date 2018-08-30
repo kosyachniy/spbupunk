@@ -19,7 +19,7 @@ while True:
 		# 	continue
 
 		if i[0] not in users():
-			send(i[0], 'Никто не любит спам и мы тоже. Подпишись на группу бота, чтобы не пропустить ничего важного в наших постах! Мероприятия в ПУНКе и наиболее важные объявления.\nhttps://vk.com/spbupunk', keyboard=keyboard)
+			send(i[0], 'Никто не любит спам и мы тоже. Подпишись на группу бота, чтобы не пропустить ничего важного в наших постах! Мероприятия в ПУНКе и наиболее важные объявления.\nhttps://vk.com/spbupunk')
 
 		mes = i[1].lower().strip()
 		try:
@@ -30,7 +30,7 @@ while True:
 					send(i[0], req['answer'], req['attachments'], keyboards[req['keyboard']-1] if req['keyboard'] else None)
 
 			if f:
-				send(i[0], 'Выберите действие:', keyboard=keyboard)
+				send(i[0], 'Выберите действие:', keyboard=keyboards[0])
 
 		except:
 			try:

@@ -44,7 +44,7 @@ def send(user, cont, img=[], keyboard=None):
 			buttons.append(line)
 
 		req['keyboard'] = json.dumps({
-			'one_time': True,
+			'one_time': False,
 			'buttons': buttons,
 		}, ensure_ascii=False)
 
