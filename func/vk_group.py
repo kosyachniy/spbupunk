@@ -55,15 +55,26 @@ def read():
 	for i in vk.method('messages.getConversations')['items']:
 		if 'unanswered' in i['conversation']:
 			messages.append((i['conversation']['peer']['id'], i['last_message']['text']))
-			# for j in vk.method('messages.getHistory', {'user_id': i['conversation']['peer']['id']})['items']:
-			# 	if 'read_state' in j and not j['read_state'] and not j['out']:
-			# 		messages.append((j['from_id'], j['body']))
 	return messages
 
 def dial():
+	now = time.time()
 	messages = []
-	for i in vk.method('messages.getConversations')['items']:
-		messages.append(i['conversation']['peer']['id'])
+
+	offset = 0
+	while True:
+		conversations = vk.method('messages.getConversations', {
+			'count': 200,
+			'offset': offset,
+		})['items']
+
+		for i in conversations:
+			messages.append(i['conversation']['peer']['id'])
+
+		if len(conversations) < 200:
+			break
+		offset += 200
+
 	return messages
 
 def users():

@@ -30,7 +30,19 @@ while True:
 					send(i[0], req['answer'], req['attachments'], keyboards[req['keyboard']-1] if req['keyboard'] else None)
 
 			if f:
-				send(i[0], 'Выберите действие:', keyboard=keyboards[0])
+				if mes == 'выключить рассылку':
+					try:
+						with open('whitelist.json', 'r') as file:
+							users = json.loads(file.read())
+					except:
+						users = [i[0]]
+					else:
+						users.append(i[0])
+
+					with open('whitelist.json', 'w') as file:
+						print(json.dumps(users), file=file)
+				else:
+					send(i[0], 'Выберите действие:', keyboard=keyboards[0])
 
 		except:
 			try:
