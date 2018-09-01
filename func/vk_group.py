@@ -58,7 +58,6 @@ def read():
 	return messages
 
 def dial():
-	now = time.time()
 	messages = []
 
 	offset = 0
@@ -76,6 +75,57 @@ def dial():
 		offset += 200
 
 	return messages
+
+def stats():
+	# messages = []
+	timeline = {}
+
+	offset = 0
+	while True:
+		conversations = vk.method('messages.getConversations', {
+			'count': 200,
+			'offset': offset,
+		})['items']
+
+		for i in conversations:
+			id = i['conversation']['peer']['id']
+
+			conversation = vk.method('messages.getHistory', {
+				'peer_id': id,
+			})
+
+			# k = 0
+			for j in conversation['items']:
+				if j['out'] == 0:
+					day = j['date'] // 86400
+					# k += 1
+
+					if day not in timeline:
+						timeline[day] = {
+							id: 1,
+						}
+					else:
+						if id in timeline[day]:
+							timeline[day][id] += 1
+						else:
+							timeline[day][id] = 1
+
+			# messages.append(conversation)
+
+		if len(conversations) < 200:
+			break
+		offset += 200
+
+	stat = []
+	line = sorted(list(timeline.keys()))
+	for i in line:
+		sum_mes = 0
+		for j in timeline[i]:
+			sum_mes += timeline[i][j]
+
+		stat.append((i, len(timeline[i]), sum_mes))
+
+	return stat
 
 def users():
 	return vk.method('groups.getMembers', {'group_id': 170498641})['items']
