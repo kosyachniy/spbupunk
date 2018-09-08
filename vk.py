@@ -32,14 +32,14 @@ while True:
 			if f:
 				if mes == 'выключить рассылку':
 					try:
-						with open('whitelist.json', 'r') as file:
+						with open('whitelistvk.json', 'r') as file:
 							users = json.loads(file.read())
 					except:
 						users = [i[0]]
 					else:
 						users.append(i[0])
 
-					with open('whitelist.json', 'w') as file:
+					with open('whitelistvk.json', 'w') as file:
 						print(json.dumps(users), file=file)
 				else:
 					send(i[0], 'Выберите действие:', keyboard=keyboards[0])

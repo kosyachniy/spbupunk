@@ -6,7 +6,7 @@ GROUP_ID = 170498641
 with open('keys.json', 'r') as file:
 	s = json.loads(file.read())
 
-	vk = vk_api.VkApi(token=s['token'])
+	vk = vk_api.VkApi(token=s['vk'])
 
 	# vks=vk_api.VkApi(login=s['login'], password=s['password'])
 	# vks.auth()
