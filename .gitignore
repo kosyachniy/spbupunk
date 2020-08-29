@@ -1,5 +1,5 @@
 **/__pycache__
 .idea/
+env/
 keys.json
-whitelist.json
-
+# whitelist.json

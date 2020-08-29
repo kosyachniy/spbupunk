@@ -8,6 +8,12 @@ with open('answers.json', 'r') as file:
 
 while True:
 	try:
+		with open('whitelistvk.json', 'r') as file:
+			whitelist = json.loads(file.read())
+	except:
+		whitelist = []
+
+	try:
 		all_messages = read()
 	except:
 		time.sleep(1)
@@ -18,8 +24,11 @@ while True:
 		# 	send(i[0], 'Сначала подпишитесь на группу бота!\nhttps://vk.com/spbupunk', keyboard=keyboard)
 		# 	continue
 
-		if i[0] not in users():
-			send(i[0], 'Никто не любит спам и мы тоже. Подпишись на группу бота, чтобы не пропустить ничего важного в наших постах! Мероприятия в ПУНКе и наиболее важные объявления.\nhttps://vk.com/spbupunk')
+		# if i[0] not in users():
+		# 	send(i[0], 'Никто не любит спам и мы тоже. Подпишись на группу бота, чтобы не пропустить ничего важного в наших постах! Мероприятия в ПУНКе и наиболее важные объявления.\nhttps://vk.com/spbupunk')
+
+		if i[0] in whitelist:
+			continue
 
 		mes = i[1].lower().strip()
 		try:
@@ -27,20 +36,15 @@ while True:
 			for req in answers:
 				if mes in req['questions']:
 					f = False
+					print('!1', i)
 					send(i[0], req['answer'], req['attachments'], keyboards[req['keyboard']-1] if req['keyboard'] else None)
 
 			if f:
 				if mes == 'выключить рассылку':
-					try:
-						with open('whitelistvk.json', 'r') as file:
-							users = json.loads(file.read())
-					except:
-						users = [i[0]]
-					else:
-						users.append(i[0])
+					whitelist.append(i[0])
 
 					with open('whitelistvk.json', 'w') as file:
-						print(json.dumps(users), file=file)
+						print(json.dumps(whitelist), file=file)
 				else:
 					send(i[0], 'Выберите действие:', keyboard=keyboards[0])
 
